@@ -13,14 +13,24 @@ requirements = ["torch", "torchvision"]
 
 
 def get_extensions():
+    # prevent ninja from using too many resources
+    try:
+        import psutil
+        num_cpu = len(psutil.Process().cpu_affinity())
+        cpu_use = max(4, num_cpu - 1)
+    except (ModuleNotFoundError, AttributeError):
+        cpu_use = 4
+
+    os.environ.setdefault('MAX_JOBS', str(cpu_use))
+
     this_dir = os.path.dirname(os.path.abspath(__file__))
     extensions_dir = os.path.join(this_dir, "src")
 
-    main_file = glob.glob(os.path.join(extensions_dir, "*.cpp"))
-    source_cpu = glob.glob(os.path.join(extensions_dir, "cpu", "*.cpp"))
-    source_cuda = glob.glob(os.path.join(extensions_dir, "cuda", "*.cu"))
+    main_source = [os.path.join(extensions_dir, "vision.cpp")]
+    source_cpu = glob.glob(os.path.join(extensions_dir, "**", "*.cpp"))
+    source_cuda = glob.glob(os.path.join(extensions_dir, "**", "*.cu"))
 
-    sources = main_file + source_cpu
+    sources = main_source + source_cpu
     extension = CppExtension
     extra_compile_args = {"cxx": ["-O2"]}
     define_macros = []
@@ -36,10 +46,7 @@ def get_extensions():
             "-D__CUDA_NO_HALF2_OPERATORS__",
             "-O2",
         ]
-    else:
-        raise NotImplementedError("Cuda is not available")
 
-    sources = [os.path.join(extensions_dir, s) for s in sources]
     include_dirs = [extensions_dir]
     ext_modules = [
         extension(

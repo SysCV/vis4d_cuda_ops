@@ -1,6 +1,12 @@
 # Vis4D Cuda Operations
 
 ## Installation
+### Requirements
+```bash
+pip install -r requirements.txt
+```
+
+### Build
 ```bash
 bash make.sh
 ```

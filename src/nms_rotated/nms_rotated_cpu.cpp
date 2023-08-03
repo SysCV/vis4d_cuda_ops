@@ -1,7 +1,7 @@
 // Copyright (c) Facebook, Inc. and its affiliates.
 // modified from
 // https://github.com/facebookresearch/detectron2/blob/main/detectron2/layers/csrc/nms_rotated/nms_rotated_cpu.cpp
-#include "box_iou_rotated_utils.h"
+#include "../box_iou_rotated/box_iou_rotated_utils.h"
 #include "nms_rotated.h"
 
 template <typename scalar_t>

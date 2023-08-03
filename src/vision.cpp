@@ -5,12 +5,14 @@
 * Modified from https://github.com/fundamentalvision/Deformable-DETR/blob/main/models/ops/src/vision.cpp
 **************************************************************************************************
 */
-#include "nms_rotated.h"
-#include "ms_deform_attn.h"
-#include "deform_conv.h"
+#include "nms_rotated/nms_rotated.h"
+#include "box_iou_rotated/box_iou_rotated.h"
+#include "ms_deform_attn/ms_deform_attn.h"
+#include "deform_conv/deform_conv.h"
 
 PYBIND11_MODULE(TORCH_EXTENSION_NAME, m) {
   m.def("nms_rotated", &nms_rotated);
+  m.def("box_iou_rotated", &box_iou_rotated);
   m.def("deform_conv_forward", &deform_conv_forward, "deform_conv_forward");
   m.def(
       "deform_conv_backward_input",
