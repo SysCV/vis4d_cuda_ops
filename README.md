@@ -1,5 +1,21 @@
 # Vis4D Cuda Operations
-To add a new Op:
 
+## Installation
+```bash
+bash make.sh
+```
+If you use python `venv `, you can add `--prefix` to specify the installation path.
+```bash
+bash make.sh --prefix $VIRTUAL_ENV
+```
+
+## Usage
+```python
+import torch
+from vis4d_cuda_ops import ms_deform_attn_forward, ms_deform_attn_backward
+...
+```
+
+## Add a new Op:
 1. Add cuda and cpu ops.
-2. Delcare its Python interface in `vision.cpp`.
+2. Delcare its Python interface in `src/vision.cpp`.
