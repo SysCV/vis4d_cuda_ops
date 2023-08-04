@@ -5,6 +5,7 @@
 * Modified from https://github.com/fundamentalvision/Deformable-DETR/blob/main/models/ops/src/vision.cpp
 **************************************************************************************************
 */
+#include <torch/extension.h>
 #include "nms_rotated/nms_rotated.h"
 #include "box_iou_rotated/box_iou_rotated.h"
 #include "ms_deform_attn/ms_deform_attn.h"
