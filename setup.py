@@ -2,6 +2,7 @@
 
 Modified from Deformable DETR: https://github.com/fundamentalvision/Deformable-DETR/tree/main/models/ops
 """
+
 import glob
 import os
 
@@ -9,19 +10,23 @@ import torch
 from setuptools import find_packages, setup
 from torch.utils.cpp_extension import CUDA_HOME, CppExtension, CUDAExtension
 
-requirements = ["torch", "torchvision"]
+
+# Read requirements from requirements.txt
+with open("requirements.txt") as f:
+    requirements = f.read().splitlines()
 
 
 def get_extensions():
     # prevent ninja from using too many resources
     try:
         import psutil
+
         num_cpu = len(psutil.Process().cpu_affinity())
         cpu_use = max(4, num_cpu - 1)
     except (ModuleNotFoundError, AttributeError):
         cpu_use = 4
 
-    os.environ.setdefault('MAX_JOBS', str(cpu_use))
+    os.environ.setdefault("MAX_JOBS", str(cpu_use))
 
     this_dir = os.path.dirname(os.path.abspath(__file__))
     extensions_dir = os.path.join(this_dir, "src")
@@ -63,12 +68,13 @@ def get_extensions():
 
 setup(
     name="vis4d_cuda_ops",
-    version="0.0",
+    version="0.0.0",
     author="VIS @ ETH",
     author_email="i@yf.io",
     url="https://github.com/syscv/vis4d_cuda_ops",
     description="PyTorch Wrapper for CUDA Functions of Vis4D",
     packages=find_packages(exclude=("configs", "tests")),
+    install_requires=requirements,
     ext_modules=get_extensions(),
     cmdclass={"build_ext": torch.utils.cpp_extension.BuildExtension},
 )

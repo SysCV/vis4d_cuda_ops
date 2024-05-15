@@ -1,15 +1,19 @@
 # Vis4D Cuda Operations
 
 ## Installation
-### Requirements
+
+You can directly install with pip and set `TORCH_CUDA_ARCH_LIST` to specify the cuda architecture if needed.
 ```bash
-pip install -r requirements.txt
+export TORCH_CUDA_ARCH_LIST="5.2 6.0 6.1 7.0 7.5 8.0 8.6+PTX"
+
+pip install .
 ```
 
-### Build
+Or you can use build installation (Deprecated for newer python version).
 ```bash
 bash make.sh
 ```
+
 If you use python `venv `, you can add `--prefix` to specify the installation path.
 ```bash
 bash make.sh --prefix $VIRTUAL_ENV
