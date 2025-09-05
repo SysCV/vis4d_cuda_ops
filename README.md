@@ -6,7 +6,7 @@ You can directly install with pip and set `TORCH_CUDA_ARCH_LIST` to specify the 
 ```bash
 export TORCH_CUDA_ARCH_LIST="5.2 6.0 6.1 7.0 7.5 8.0 8.6+PTX"
 
-pip install -v .
+pip install -v . --no-build-isolation --no-cache-dir
 ```
 
 ## Usage
